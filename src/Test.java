@@ -4,51 +4,45 @@ import java.util.ArrayList;
  * Created by Shishkov A.V. on 18.07.2017.
  */
 public class Test {
-   /* //so, we decide to divide our thoughts
-
-    private static String getEdge(int index, int level) {
-        String s = "";
-
-        for (int i = 1; i < level - index; i++)
-            s += " ";
-        return s;
-    }
-
-    private static String getMiddle(int index) {
-        String s = "";
-
-        for (int i = 1; i <= index; i++) {
-            s += "X" + " ";
-        }
-
-        return s;
-    }
-
-    private static String getString(int index, int level) {
-        return getEdge(index, level) + getMiddle(index) + getEdge(index, level);
-    }
-
-    private static void outPyramide(int level) {
-        for (int i = 0; i < level; i++) {
-            System.out.println(getString(i, level));
-        }
-    }
-
-    // look at chat ---->>>>>
-    public static void main(String[] args) {
-        outPyramide(10);
-    }*/
-
     private static final String SPACE = " ";
 
     /**
      * @param args
      */
     public static void main(String[] args) {
-//        outPyramide(10);
-        displayList(createList());
 
-//        displayArray(createArray());
+        Thread thread = new Thread(() -> incrementation());
+
+        thread.start();
+
+        for(int i = 0; i < 5; i++)
+        {
+            System.out.println("Курица");
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Конец программы");
+    }
+
+    private static void incrementation(){
+        for(int i = 0; i < 10; i++)
+        {
+            System.out.println("Яйцо");
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     private static void displayArray(int[] array) {
@@ -57,7 +51,7 @@ public class Test {
         }
     }
 
-    private static int[] createArray(){
+    private static int[] createArray() {
         int[] array = new int[5];
 
         for (int i : array) {
@@ -69,7 +63,7 @@ public class Test {
 
     private static void displayList(ArrayList<int[]> list) {
         for (int[] m : list) {
-            for (int n : m){
+            for (int n : m) {
                 System.out.println(n);
             }
         }

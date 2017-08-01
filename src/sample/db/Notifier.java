@@ -9,16 +9,18 @@ import java.sql.Statement;
  */
 public class Notifier extends Thread {
     private Connection conn;
+    private String channelName;
 
-    public Notifier(Connection conn) {
+    public Notifier(Connection conn, String channelName) {
         this.conn = conn;
+        this.channelName = channelName;
     }
 
     public void run() {
         while (true) {
             try {
                 Statement stmt = conn.createStatement();
-                stmt.execute("NOTIFY test_channel");
+                stmt.execute(String.format("NOTIFY %s", channelName));
                 stmt.close();
                 Thread.sleep(2000);
             } catch (SQLException sqle) {
